@@ -1,62 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🎄 Boldog karácsonyt, Kevin! 🎄</title>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
+      margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont;
-      background: #0f0f14;
-      color: white;
+      background: radial-gradient(circle at top, #1c1c2b, #0b0b12);
+      color: #ffffff;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
-      text-align: center;
     }
     .card {
-      background: #1a1a24;
-      padding: 40px;
-      border-radius: 16px;
-      max-width: 400px;
+      background: #141421;
+      padding: 36px;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,.6);
     }
-    .code {
-      font-size: 1.4rem;
-      background: #000;
+    img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+    }
+    p {
+      opacity: 0.85;
+      margin-bottom: 24px;
+    }
+    input {
+      width: 100%;
       padding: 12px;
-      border-radius: 8px;
-      margin: 20px 0;
-      letter-spacing: 2px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      text-align: center;
     }
     button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
       background: #e53935;
       color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 1rem;
-      border-radius: 8px;
       cursor: pointer;
     }
     button:hover {
       opacity: 0.9;
     }
+    .code {
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      background: #000;
+      padding: 14px;
+      border-radius: 10px;
+      margin: 20px 0;
+      cursor: pointer;
+      user-select: all;
+    }
+    .hidden {
+      display: none;
+    }
+    .small {
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Boldog karácsonyt!</h1>
-    <p>6500 RP</p>
-    <div class="code" id="code">XXXX-XXXX-XXXX</div>
-    <button onclick="copy()">másolás</button>
+
+  <!-- Password Gate -->
+  <div class="card" id="gate">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Riot_Games_logo_2022.svg" alt="Riot Games">
+    <h1>Birthday Gift 🎂</h1>
+    <p>Enter the password to reveal your Riot Points</p>
+    <input type="password" id="pw" placeholder="Password" />
+    <button onclick="unlock()">Unlock</button>
+  </div>
+
+  <!-- Content -->
+  <div class="card hidden" id="content">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Riot_Games_logo_2022.svg" alt="Riot Games">
+    <h1>Enjoy 🎉</h1>
+    <p>Your Riot Points code:</p>
+    <div class="code" id="code" onclick="copyCode()">XXXX-XXXX-XXXX</div>
+    <p class="small">Click the code to copy</p>
   </div>
 
   <script>
-    function copy() {
-      navigator.clipboard.writeText(
-        document.getElementById('code').innerText
-      );
-      alert('Code copied!');
+    const PASSWORD = "2008";
+
+    function unlock() {
+      const input = document.getElementById("pw").value;
+      if (input === PASSWORD) {
+        document.getElementById("gate").classList.add("hidden");
+        document.getElementById("content").classList.remove("hidden");
+      } else {
+        alert("Wrong password");
+      }
+    }
+
+    function copyCode() {
+      const code = document.getElementById("code").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert("Code copied!");
+      });
     }
   </script>
+
 </body>
 </html>
