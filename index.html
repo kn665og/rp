@@ -1,121 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
-  <meta charset="UTF-8" />
-  <title>Boldog karácsonyt, Kevin!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont;
-      background: radial-gradient(circle at top, #1c1c2b, #0b0b12);
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .card {
-      background: #141421;
-      padding: 36px;
-      border-radius: 18px;
-      width: 100%;
-      max-width: 420px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,.6);
-    }
-    img {
-      width: 120px;
-      margin-bottom: 20px;
-    }
-    h1 {
-      margin: 0 0 10px;
-      font-size: 1.8rem;
-    }
-    p {
-      opacity: 0.85;
-      margin-bottom: 24px;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      font-size: 1rem;
-      margin-bottom: 14px;
-      text-align: center;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      font-size: 1rem;
-      background: #e53935;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      opacity: 0.9;
-    }
-    .code {
-      font-size: 1.3rem;
-      letter-spacing: 2px;
-      background: #000;
-      padding: 14px;
-      border-radius: 10px;
-      margin: 20px 0;
-      cursor: pointer;
-      user-select: all;
-    }
-    .hidden {
-      display: none;
-    }
-    .small {
-      font-size: 0.85rem;
-      opacity: 0.6;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karácsonyi Ajándék</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            margin: auto;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        input[type="password"], button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .code-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .code-box {
+            background-color: #e0e0e0;
+            padding: 10px;
+            font-family: monospace;
+            cursor: pointer;
+            user-select: all;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Karácsonyi Ajándék</h1>
+        <p>Kérlek, írd be a jelszót a kód megtekintéséhez:</p>
+        <input type="password" id="password" placeholder="Jelszó">
+        <button onclick="checkPassword()">Megnyitás</button>
 
-  <!-- Password Gate -->
-  <div class="card" id="gate">
-    <h1>RP (6500)</h1>
-    <p>Írd be a születési éved a megtekintéshez:</p>
-    <input type="password" id="pw" placeholder="Password" />
-    <button onclick="unlock()">Unlock</button>
-  </div>
+        <div class="code-container" id="codeContainer">
+            <p>Íme a Riot Points kódod! Kattints rá a másoláshoz:</p>
+            <div class="code-box" id="riotCode" onclick="copyCode()">RP-XXXX-XXXX-XXXX</div>
+        </div>
+    </div>
 
-  <!-- Content -->
-  <div class="card hidden" id="content">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Riot_Games_logo_2022.svg" alt="Riot Games">
-    <h1>Egészségedre</h1>
-    <p>A kód itt látható:</p>
-    <div class="code" id="code" onclick="copyCode()">RA-KHJWPH4R7E8NCESD</div>
-    <p class="small">kattints a kódra a másoláshoz</p>
-  </div>
+    <script>
+        const correctPassword = "2008";
 
-  <script>
-    const PASSWORD = "2008";
+        function checkPassword() {
+            const entered = document.getElementById('password').value;
+            if (entered === correctPassword) {
+                document.getElementById('codeContainer').style.display = 'block';
+            } else {
+                alert('Helytelen jelszó!');
+            }
+        }
 
-    function unlock() {
-      const input = document.getElementById("pw").value;
-      if (input === PASSWORD) {
-        document.getElementById("gate").classList.add("hidden");
-        document.getElementById("content").classList.remove("hidden");
-      } else {
-        alert("Wrong password");
-      }
-    }
-
-    function copyCode() {
-      const code = document.getElementById("code").innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        alert("Code copied!");
-      });
-    }
-  </script>
-
+        function copyCode() {
+            const code = document.getElementById('riotCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('A kód másolva a vágólapra!');
+            });
+        }
+    </script>
 </body>
 </html>
